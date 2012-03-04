@@ -10,7 +10,8 @@
 
 @interface YourViewController()
 
--(void)showLockScreen:(id)sender;
+- (IBAction)showLockScreen:(UIButton *)button;
+
 @end
 
 @implementation YourViewController
@@ -37,13 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setFrame:CGRectMake(0, 0, 768, 1024)];  
-    
-    UIButton *showLockScreen = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [showLockScreen setFrame:CGRectMake(500.0f, 500.0f, 180.0f, 50.0f)];
-    [showLockScreen setTitle:@"Show Lock Screen" forState:UIControlStateNormal];
-    [showLockScreen addTarget:self action:@selector(showLockScreen:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:showLockScreen];
+    [self.view setFrame:CGRectMake(0, 0, 768, 1024)];
 }
 
 - (void)viewDidUnload
@@ -70,7 +65,7 @@
 }
 
 #pragma mark - private methods
--(void)showLockScreen:(id)sender
+- (IBAction)showLockScreen:(UIButton *)button
 {
     //Create the ABLockScreen (Alloc init) and display how you wish. An easy way is by using it as a modal view as per below:
     ABPadLockScreen *lockScreen = [[ABPadLockScreen alloc] initWithDelegate:self withDataSource:self];

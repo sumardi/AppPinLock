@@ -16,9 +16,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    YourViewController *YVC = [[YourViewController alloc] init];
-    [self.window addSubview:YVC.view];
-    
+    YourViewController *yourViewController = [[YourViewController alloc] initWithNibName:@"YourViewController" bundle:nil];
+    self.window.rootViewController = yourViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
