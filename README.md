@@ -5,10 +5,10 @@ data and instruct the delegate of important events.
 
 ### Quickstart
 
-To use in your app:
-1. Copy all the files in the ABPadLockScreen folder into your apps source folder
-2. Add the files into your Xcode project
-3. Simply import the ABPadLockScreen.h file and use as required
+To use in your app:   
+1. Copy all the files in the ABPadLockScreen folder into your apps source folder   
+2. Add the files into your Xcode project    
+3. Simply import the ABPadLockScreen.h file and use as required    
 
 ### Example
 
