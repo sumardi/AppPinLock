@@ -80,7 +80,6 @@
     [lockScreen setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     [self presentModalViewController:lockScreen animated:YES];
     lockScreen.view.superview.frame = CGRectMake(centerLeft, centerTop, 332.0f, 465.0f);
-    [lockScreen release];
 }
 
 #pragma mark - ABPadLockScreen Delegate methods

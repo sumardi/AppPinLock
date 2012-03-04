@@ -52,8 +52,8 @@
 @end
 
 @interface ABPadLockScreen : UIViewController
-@property (nonatomic, assign) id<ABPadLockScreenDelegate> delegate;
-@property (nonatomic, assign) id<ABPadLockScreenDataSource> dataSource;
+@property (nonatomic, unsafe_unretained) id<ABPadLockScreenDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<ABPadLockScreenDataSource> dataSource;
 
 - (id)initWithDelegate:(id<ABPadLockScreenDelegate>)aDelegate withDataSource:(id<ABPadLockScreenDataSource>)aDataSource;
 - (void)resetAttempts;

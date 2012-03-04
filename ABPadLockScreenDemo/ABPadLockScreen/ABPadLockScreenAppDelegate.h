@@ -10,6 +10,6 @@
 
 @interface ABPadLockScreenAppDelegate : NSObject <UIApplicationDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic) IBOutlet UIWindow *window;
 
 @end

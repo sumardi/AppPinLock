@@ -135,9 +135,7 @@
 		9CB9EFC7141A2641003B990E /* ABPadLockScreen */ = {
 			isa = PBXGroup;
 			children = (
-				9CB9EFE5141A26C9003B990E /* Assets */,
-				9CB9F001141A26C9003B990E /* ABPadLockScreen.h */,
-				9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */,
+				9FBA9BA315034454005A2D5B /* ABPadLockScreen */,
 				9CB9EFD0141A2641003B990E /* ABPadLockScreenAppDelegate.h */,
 				9CB9EFD1141A2641003B990E /* ABPadLockScreenAppDelegate.m */,
 				9CB9EFE1141A2672003B990E /* YourViewController.h */,
@@ -191,6 +189,16 @@
 				9CB9F000141A26C9003B990E /* input.png */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		9FBA9BA315034454005A2D5B /* ABPadLockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFE5141A26C9003B990E /* Assets */,
+				9CB9F001141A26C9003B990E /* ABPadLockScreen.h */,
+				9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */,
+			);
+			name = ABPadLockScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,8 +367,10 @@
 		9CB9EFDF141A2641003B990E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ABPadLockScreen/ABPadLockScreen-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ABPadLockScreen/ABPadLockScreen-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -370,8 +380,10 @@
 		9CB9EFE0141A2641003B990E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ABPadLockScreen/ABPadLockScreen-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ABPadLockScreen/ABPadLockScreen-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

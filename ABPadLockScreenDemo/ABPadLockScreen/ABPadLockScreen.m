@@ -29,22 +29,22 @@
 //
 #import "ABPadLockScreen.h"
 @interface ABPadLockScreen()
-@property (nonatomic, retain) UIImageView *keyValueOneImageView;
-@property (nonatomic, retain) UIImageView *keyValueTwoImageView;
-@property (nonatomic, retain) UIImageView *keyValueThreeImageView;
-@property (nonatomic, retain) UIImageView *keyValueFourImageView;
-@property (nonatomic, retain) UIImageView *incorrectAttemptImageView;
+@property (nonatomic) UIImageView *keyValueOneImageView;
+@property (nonatomic) UIImageView *keyValueTwoImageView;
+@property (nonatomic) UIImageView *keyValueThreeImageView;
+@property (nonatomic) UIImageView *keyValueFourImageView;
+@property (nonatomic) UIImageView *incorrectAttemptImageView;
 
-@property (nonatomic, retain) UILabel *incorrectAttemptLabel;
-@property (nonatomic, retain) UILabel *subTitleLabel;
+@property (nonatomic) UILabel *incorrectAttemptLabel;
+@property (nonatomic) UILabel *subTitleLabel;
 
 @property (nonatomic) int digitsPressed;
 @property(nonatomic) int attempts;
 
-@property (nonatomic, retain) NSString *digitOne;
-@property (nonatomic, retain) NSString *digitTwo;
-@property (nonatomic, retain) NSString *digitThree;
-@property (nonatomic, retain) NSString *digitFour;
+@property (nonatomic) NSString *digitOne;
+@property (nonatomic) NSString *digitTwo;
+@property (nonatomic) NSString *digitThree;
+@property (nonatomic) NSString *digitFour;
 
 - (void)cancelButtonTapped:(id)sender;
 - (void)digitButtonPressed:(id)sender;
@@ -90,7 +90,7 @@
     [self.view setBackgroundColor:[UIColor clearColor]];
     
     //Set the background view
-    UIImageView *backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background"]] autorelease];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background"]];
     [self.view addSubview:backgroundView];
     
     //Set the title
@@ -121,25 +121,25 @@
     [self.view addSubview:subTitleLabel];
     
     //Set the (currently empty) key value images (dots that appear when the user presses a button)
-    UIImageView *_keyValueImageOne = [[[UIImageView alloc] initWithFrame:CGRectMake(52.0f, 133.0f, 16.0f, 16.0f)] autorelease];
+    UIImageView *_keyValueImageOne = [[UIImageView alloc] initWithFrame:CGRectMake(52.0f, 133.0f, 16.0f, 16.0f)];
     [self setKeyValueOneImageView:_keyValueImageOne];
     [self.view addSubview:keyValueOneImageView];
     
-    UIImageView *_keyValueImageTwo = [[[UIImageView alloc] initWithFrame:CGRectMake(123.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)] autorelease];
+    UIImageView *_keyValueImageTwo = [[UIImageView alloc] initWithFrame:CGRectMake(123.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
     [self setKeyValueTwoImageView:_keyValueImageTwo];
     [self.view addSubview:keyValueTwoImageView];
     
-    UIImageView *_keyValueImageThree = [[[UIImageView alloc] initWithFrame:CGRectMake(194.0f, 
+    UIImageView *_keyValueImageThree = [[UIImageView alloc] initWithFrame:CGRectMake(194.0f, 
                                                                                      keyValueOneImageView.frame.origin.y, 
                                                                                      16.0f, 
-                                                                                     16.0f)] autorelease];
+                                                                                     16.0f)];
     [self setKeyValueThreeImageView:_keyValueImageThree];
     [self.view addSubview:keyValueThreeImageView];
     
-    UIImageView *_keyValueImageFour = [[[UIImageView alloc] initWithFrame:CGRectMake(265.0f, 
+    UIImageView *_keyValueImageFour = [[UIImageView alloc] initWithFrame:CGRectMake(265.0f, 
                                                                                     keyValueOneImageView.frame.origin.y, 
                                                                                     16.0f, 
-                                                                                    16.0f)] autorelease];
+                                                                                    16.0f)];
     [self setKeyValueFourImageView:_keyValueImageFour];
     [self.view addSubview:keyValueFourImageView];
     
@@ -147,12 +147,11 @@
     UIImageView *_incorrectAttemptImageView = [[UIImageView alloc] initWithFrame:CGRectMake(60.0f, 190.0f, 216.0f, 20.0f)];
     [self setIncorrectAttemptImageView:_incorrectAttemptImageView];
     [self.view addSubview:incorrectAttemptImageView];
-    [_incorrectAttemptImageView release];
     
-    UILabel *_incorrectAttemptLabel = [[[UILabel alloc] initWithFrame:CGRectMake(incorrectAttemptImageView.frame.origin.x + 10.0f, 
+    UILabel *_incorrectAttemptLabel = [[UILabel alloc] initWithFrame:CGRectMake(incorrectAttemptImageView.frame.origin.x + 10.0f, 
                                                                                 incorrectAttemptImageView.frame.origin.y + 1.0f, 
                                                                                 incorrectAttemptImageView.frame.size.width - 20.0f, 
-                                                                                incorrectAttemptImageView.frame.size.height - 2.0f)] autorelease];
+                                                                                incorrectAttemptImageView.frame.size.height - 2.0f)];
     [_incorrectAttemptLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
     [_incorrectAttemptLabel setTextAlignment:UITextAlignmentCenter];
     [_incorrectAttemptLabel setTextColor:[UIColor whiteColor]];
@@ -253,8 +252,6 @@
                                      buttonHeight)];
     [self.view addSubview:clearButton];
     
-    [titleLabel release];
-    [_subtitleLabel release];
     
 }
 
@@ -420,7 +417,7 @@
 
 - (void)lockPad
 {
-    UIView *lockView = [[[UIView alloc] initWithFrame:CGRectMake(0.0f, 238.0f, self.view.frame.size.width, self.view.frame.size.height - 238.0f)] autorelease];
+    UIView *lockView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 238.0f, self.view.frame.size.width, self.view.frame.size.height - 238.0f)];
     [subTitleLabel setText:nil];
     [lockView setBackgroundColor:[UIColor blackColor]];
     [lockView setAlpha:0.5];
