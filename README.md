@@ -15,7 +15,7 @@ To use in your app:
 To view a demo of the ABPadLockScreen in action, as well as an example of how to use the class, have a look through the 
 ABPadLockScreenDemo project.
 
-### Todo
+### Changes
 
 + ARC compatible for use with iOS 5.0 or higher
 + 6 digits pin lock
