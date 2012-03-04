@@ -13,7 +13,7 @@ build/
 
 Documentation/Generated
 doxygenWarnings.txt
-*.xcodeproj/xcuserdata/*.xcuserdatad
-*.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
-*.xcodeproj/project.xcworkspace/*.xcworkspacedata
-*.xcodeproj/xcuserdata/*.xcuserdatad/xcschemes/*.xcscheme
+*/*.xcodeproj/xcuserdata/*.xcuserdatad
+*/*.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+*/*.xcodeproj/project.xcworkspace/*.xcworkspacedata
+*/*.xcodeproj/xcuserdata/*.xcuserdatad/xcschemes/*.xcscheme
