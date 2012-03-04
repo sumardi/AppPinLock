@@ -32,7 +32,17 @@
 //
 
 #import "AppPinLock.h"
-@interface AppPinLock()
+
+typedef enum {
+    AppPinLockCheck,
+    AppPinLockConfirm,
+    AppPinLockSetup
+} AppPinLockState;
+
+@interface AppPinLock() {
+    AppPinLockState state;
+    int initialPasscode;
+}
 @property (nonatomic) UIImageView *keyValueOneImageView;
 @property (nonatomic) UIImageView *keyValueTwoImageView;
 @property (nonatomic) UIImageView *keyValueThreeImageView;
@@ -54,11 +64,15 @@
 @property (nonatomic) NSString *digitFive;
 @property (nonatomic) NSString *digitSix;
 
+@property (nonatomic) NSString *filePath;
+
 - (void)cancelButtonTapped:(id)sender;
 - (void)digitButtonPressed:(id)sender;
 - (void)backSpaceButtonTapped:(id)sender;
 - (void)digitInputted:(int)digit;
 - (void)checkPin;
+- (void)setupPin;
+- (void)confirmPin;
 - (void)lockPad;
 - (UIButton *)getStyledButtonForNumber:(int)number;
 @end
@@ -68,6 +82,7 @@
 @synthesize keyValueOneImageView, keyValueTwoImageView, keyValueThreeImageView, keyValueFourImageView, keyValueFiveImageView, keyValueSixImageView, incorrectAttemptImageView;
 @synthesize incorrectAttemptLabel, subTitleLabel;
 @synthesize digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix;
+@synthesize filePath;
 @synthesize digitsPressed, attempts;
 
 - (id)initWithDelegate:(id<AppPinLockDelegate>)aDelegate withDataSource:(id<AppPinLockDataSource>)aDataSource
@@ -123,7 +138,7 @@
     [_subtitleLabel setTextAlignment:UITextAlignmentCenter];
     [_subtitleLabel setBackgroundColor:[UIColor clearColor]];
     [_subtitleLabel setTextColor:[UIColor blackColor]];
-    [_subtitleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
+    [_subtitleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16.0f]];
     [_subtitleLabel setText:[dataSource padLockScreenSubtitleText]];
     [self setSubTitleLabel:_subtitleLabel];
     [self.view addSubview:subTitleLabel];
@@ -262,7 +277,30 @@
                                      buttonHeight)];
     [self.view addSubview:clearButton];
     
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    filePath = [documentsDirectory stringByAppendingPathComponent:@"passcode.plist"];
     
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"passcode" ofType:@"plist"];
+
+        [[NSFileManager defaultManager] copyItemAtPath:bundle toPath:filePath error:&error];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+
+    if ([[data objectForKey:@"pinlock"] intValue] == 0) {
+        state = AppPinLockSetup;
+        [subTitleLabel setText:@"Enter your new passcode"];
+    } else {
+        state = AppPinLockCheck;
+    }
 }
 
 - (void)viewDidUnload
@@ -359,6 +397,9 @@
 
 - (void)digitButtonPressed:(id)sender
 {
+    [incorrectAttemptImageView setImage:nil];
+    [incorrectAttemptLabel setText:nil];
+    
     UIButton *button = (UIButton *)sender;
     
     [self digitInputted:button.tag];
@@ -402,7 +443,13 @@
             digitsPressed = 6;
             [keyValueSixImageView setImage:[UIImage imageNamed:@"input"]];
             [self setDigitSix:[NSString stringWithFormat:@"%i", digit]];
-            [self performSelector:@selector(checkPin) withObject:self afterDelay:0.3];
+            if (state == AppPinLockSetup) {
+                [self performSelector:@selector(setupPin) withObject:self afterDelay:0.3];
+            } else if (state == AppPinLockConfirm) {
+                [self performSelector:@selector(confirmPin) withObject:self afterDelay:0.3];
+            } else {
+                [self performSelector:@selector(checkPin) withObject:self afterDelay:0.3];
+            }
             break;
             
         default:
@@ -410,10 +457,39 @@
     }
 }
 
+- (void)setupPin
+{
+    initialPasscode = [[NSString stringWithFormat:@"%@%@%@%@%@%@", digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix] intValue];
+    [subTitleLabel setText:@"Re-enter your new passcode"];
+    [self resetLockScreen];
+    state = AppPinLockConfirm;
+}
+
+- (void)confirmPin
+{
+    int stringPasscode = [[NSString stringWithFormat:@"%@%@%@%@%@%@", digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix] intValue];
+    if (stringPasscode == initialPasscode) {
+        [delegate unlockWasSuccessful];
+        [incorrectAttemptImageView setImage:nil];
+        [incorrectAttemptLabel setText:nil];
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+        [data setObject:[NSNumber numberWithInt:initialPasscode] forKey:@"pinlock"];
+        [data writeToFile:filePath atomically:YES];
+    } else {
+        [incorrectAttemptImageView setImage:[UIImage imageNamed:@"error-box"]];
+        [incorrectAttemptLabel setText:[NSString stringWithFormat:@"Your passcode doesn't match"]];
+        [subTitleLabel setText:@"Enter your new passcode"];
+    }
+    state = AppPinLockSetup;
+    [self resetLockScreen];
+}
+
 - (void)checkPin
 {
     int stringPasscode = [[NSString stringWithFormat:@"%@%@%@%@%@%@", digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix] intValue];
-    if (stringPasscode == [dataSource unlockPasscode]) {
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+    
+    if (stringPasscode == [[data objectForKey:@"pinlock"] intValue]) {
         [delegate unlockWasSuccessful];
         [self resetLockScreen];
         [incorrectAttemptImageView setImage:nil];
@@ -443,7 +519,6 @@
         }
         [self resetLockScreen];
     }
-    
 }
 
 - (void)lockPad

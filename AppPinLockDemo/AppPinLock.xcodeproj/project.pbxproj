@@ -42,6 +42,7 @@
 		9CB9F01B141A26C9003B990E /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFE141A26C9003B990E /* close.png */; };
 		9CB9F01C141A26C9003B990E /* error-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFF141A26C9003B990E /* error-box.png */; };
 		9CB9F01D141A26C9003B990E /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9F000141A26C9003B990E /* input.png */; };
+		9F56452A1503F11500CF70B4 /* passcode.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F5645291503F11500CF70B4 /* passcode.plist */; };
 		9FBA9BAD1503484F005A2D5B /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FBA9BAC1503484F005A2D5B /* DemoViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		9CB9EFFF141A26C9003B990E /* error-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error-box.png"; sourceTree = "<group>"; };
 		9CB9F000141A26C9003B990E /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
 		9CB9F001141A26C9003B990E /* AppPinLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPinLock.h; sourceTree = "<group>"; };
+		9F5645291503F11500CF70B4 /* passcode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = passcode.plist; sourceTree = "<group>"; };
 		9FBA9BAC1503484F005A2D5B /* DemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +189,7 @@
 				9CB9EFFE141A26C9003B990E /* close.png */,
 				9CB9EFFF141A26C9003B990E /* error-box.png */,
 				9CB9F000141A26C9003B990E /* input.png */,
+				9F5645291503F11500CF70B4 /* passcode.plist */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				9CB9F01C141A26C9003B990E /* error-box.png in Resources */,
 				9CB9F01D141A26C9003B990E /* input.png in Resources */,
 				9FBA9BAD1503484F005A2D5B /* DemoViewController.xib in Resources */,
+				9F56452A1503F11500CF70B4 /* passcode.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,11 +365,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sumardi Shukor (RF5J2AG5WR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppPinLock/AppPinLock-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "/Users/smd/Xcode/AppPinLock/AppPinLockDemo/AppPinLock/AppPinLock-Info.plist";
 				PRODUCT_NAME = AppPinLock;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1684E17-56FE-4A9C-B33B-192F77C4480D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
