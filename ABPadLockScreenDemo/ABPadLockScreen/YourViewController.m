@@ -49,25 +49,17 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
-    
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)
-    {
-        [self.view setFrame:CGRectMake(0, 0, 768, 1024)]; 
-    }
-    else if UIInterfaceOrientationIsPortrait(fromInterfaceOrientation)
-    {
-        [self.view setFrame:CGRectMake(0, 0, 1024, 768)]; 
-    }
+    self.view.frame = UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ? CGRectMake(0, 0, 768, 1024) : CGRectMake(0, 0, 1024, 768);
 }
 
 #pragma mark - private methods
 - (IBAction)showLockScreen:(UIButton *)button
 {
-    //Create the ABLockScreen (Alloc init) and display how you wish. An easy way is by using it as a modal view as per below:
+    // Create the ABLockScreen (Alloc init) and display how you wish. An easy way is by using it as a modal view as per below:
     ABPadLockScreen *lockScreen = [[ABPadLockScreen alloc] initWithDelegate:self withDataSource:self];
     float centerLeft = self.view.frame.size.width/2.0f - lockScreen.view.frame.size.width/2.0f;
     float centerTop =  self.view.frame.size.height/2.0f - lockScreen.view.frame.size.height/2.0f;
@@ -80,62 +72,60 @@
 #pragma mark - ABPadLockScreen Delegate methods
 - (void)unlockWasSuccessful
 {
-    //Perform any action needed when the unlock was successfull (usually remove the lock view and then load another view)
+    /* Perform any action needed when the unlock was successfull 
+        (usually remove the lock view and then load another view) */
     [self dismissModalViewControllerAnimated:YES];
-    
 }
 
 - (void)unlockWasUnsuccessful:(int)falseEntryCode afterAttemptNumber:(int)attemptNumber
 {
-    //Tells you that the user performed an unsuccessfull unlock and tells you the incorrect code and the attempt number. ABLockScreen will display an error if you have
-    //set an attempt limit through the datasource method, but you may wish to make a record of the failed attempt.
-
-    
+    /* Tells you that the user performed an unsuccessfull unlock and tells you the incorrect code and the attempt number. 
+        ABLockScreen will display an error if you have set an attempt limit through the datasource method, but 
+        you may wish to make a record of the failed attempt. */
 }
 
 - (void)unlockWasCancelled
 {
-    //This is a good place to remove the ABLockScreen
+    /* This is a good place to remove the ABLockScreen */
     [self dismissModalViewControllerAnimated:YES];
-    
 }
 
 -(void)attemptsExpired
 {
-    //If you want to perform any action when the user has failed all their attempts, do so here. ABLockPad will automatically lock them from entering in any more
-    //pins.
-    
+    /* If you want to perform any action when the user has failed all their attempts, do so here. 
+        ABLockPad will automatically lock them from entering in any more pins. */
 }
 
 #pragma mark - ABPadLockScreen DataSource methods
 - (int)unlockPasscode
 {
-    //Provide the ABLockScreen with a code to verify against
+    /* Provide the ABLockScreen with a code to verify against */
     return 1234;
 }
 
 - (NSString *)padLockScreenTitleText
 {
-    //Provide the text for the lock screen title here
+    /* Provide the text for the lock screen title here */
     return @"Enter passcode";
     
 }
 
 - (NSString *)padLockScreenSubtitleText
 {
-    //Provide the text for the lock screen subtitle here
+    /* Provide the text for the lock screen subtitle here */
     return @"Please enter passcode";
 }
 
 -(BOOL)hasAttemptLimit
 {
-    //If the lock screen only allows a limited number of attempts, return YES. Otherwise, return NO
+    /* If the lock screen only allows a limited number of attempts, return YES. Otherwise, return NO */
     return YES;
 }
 
 - (int)attemptLimit
 {
-    //If the lock screen only allows a limited number of attempts, return the number of allowed attempts here You must return higher than 0 (Recomended more than 1).
+    /* If the lock screen only allows a limited number of attempts, return the number of allowed 
+        attempts here You must return higher than 0 (Recomended more than 1). */
     return 3;
 }
 
