@@ -33,6 +33,8 @@
 @property (nonatomic) UIImageView *keyValueTwoImageView;
 @property (nonatomic) UIImageView *keyValueThreeImageView;
 @property (nonatomic) UIImageView *keyValueFourImageView;
+@property (nonatomic) UIImageView *keyValueFiveImageView;
+@property (nonatomic) UIImageView *keyValueSixImageView;
 @property (nonatomic) UIImageView *incorrectAttemptImageView;
 
 @property (nonatomic) UILabel *incorrectAttemptLabel;
@@ -45,6 +47,8 @@
 @property (nonatomic) NSString *digitTwo;
 @property (nonatomic) NSString *digitThree;
 @property (nonatomic) NSString *digitFour;
+@property (nonatomic) NSString *digitFive;
+@property (nonatomic) NSString *digitSix;
 
 - (void)cancelButtonTapped:(id)sender;
 - (void)digitButtonPressed:(id)sender;
@@ -57,9 +61,9 @@
 
 @implementation ABPadLockScreen
 @synthesize delegate, dataSource;
-@synthesize keyValueOneImageView, keyValueTwoImageView, keyValueThreeImageView, keyValueFourImageView, incorrectAttemptImageView;
+@synthesize keyValueOneImageView, keyValueTwoImageView, keyValueThreeImageView, keyValueFourImageView, keyValueFiveImageView, keyValueSixImageView, incorrectAttemptImageView;
 @synthesize incorrectAttemptLabel, subTitleLabel;
-@synthesize digitOne, digitTwo, digitThree, digitFour;
+@synthesize digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix;
 @synthesize digitsPressed, attempts;
 
 - (id)initWithDelegate:(id<ABPadLockScreenDelegate>)aDelegate withDataSource:(id<ABPadLockScreenDataSource>)aDataSource
@@ -121,27 +125,29 @@
     [self.view addSubview:subTitleLabel];
     
     //Set the (currently empty) key value images (dots that appear when the user presses a button)
-    UIImageView *_keyValueImageOne = [[UIImageView alloc] initWithFrame:CGRectMake(52.0f, 133.0f, 16.0f, 16.0f)];
+    UIImageView *_keyValueImageOne = [[UIImageView alloc] initWithFrame:CGRectMake(34.0f, 130.0f, 16.0f, 16.0f)];
     [self setKeyValueOneImageView:_keyValueImageOne];
     [self.view addSubview:keyValueOneImageView];
     
-    UIImageView *_keyValueImageTwo = [[UIImageView alloc] initWithFrame:CGRectMake(123.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
+    UIImageView *_keyValueImageTwo = [[UIImageView alloc] initWithFrame:CGRectMake(83.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
     [self setKeyValueTwoImageView:_keyValueImageTwo];
     [self.view addSubview:keyValueTwoImageView];
     
-    UIImageView *_keyValueImageThree = [[UIImageView alloc] initWithFrame:CGRectMake(194.0f, 
-                                                                                     keyValueOneImageView.frame.origin.y, 
-                                                                                     16.0f, 
-                                                                                     16.0f)];
+    UIImageView *_keyValueImageThree = [[UIImageView alloc] initWithFrame:CGRectMake(133.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
     [self setKeyValueThreeImageView:_keyValueImageThree];
     [self.view addSubview:keyValueThreeImageView];
     
-    UIImageView *_keyValueImageFour = [[UIImageView alloc] initWithFrame:CGRectMake(265.0f, 
-                                                                                    keyValueOneImageView.frame.origin.y, 
-                                                                                    16.0f, 
-                                                                                    16.0f)];
+    UIImageView *_keyValueImageFour = [[UIImageView alloc] initWithFrame:CGRectMake(183.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
     [self setKeyValueFourImageView:_keyValueImageFour];
     [self.view addSubview:keyValueFourImageView];
+    
+    UIImageView *_keyValueImageFive = [[UIImageView alloc] initWithFrame:CGRectMake(233.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
+    [self setKeyValueFiveImageView:_keyValueImageFive];
+    [self.view addSubview:keyValueFiveImageView];
+    
+    UIImageView *_keyValueImageSix = [[UIImageView alloc] initWithFrame:CGRectMake(280.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
+    [self setKeyValueSixImageView:_keyValueImageSix];
+    [self.view addSubview:keyValueSixImageView];
     
     //Set the incorrect attempt error background image and label
     UIImageView *_incorrectAttemptImageView = [[UIImageView alloc] initWithFrame:CGRectMake(60.0f, 190.0f, 216.0f, 20.0f)];
@@ -278,11 +284,15 @@
     [keyValueTwoImageView setImage:nil];
     [keyValueThreeImageView setImage:nil];
     [keyValueFourImageView setImage:nil];
+    [keyValueFiveImageView setImage:nil];
+    [keyValueSixImageView setImage:nil];
     
     [self setDigitOne:nil];
     [self setDigitTwo:nil];
     [self setDigitThree:nil];
     [self setDigitFour:nil];
+    [self setDigitFive:nil];
+    [self setDigitSix:nil];
 }
 
 - (void)resetAttempts
@@ -325,6 +335,18 @@
             [self setDigitThree:nil];
             break;
             
+        case 4:
+            digitsPressed = 3;
+            [keyValueFourImageView setImage:nil];
+            [self setDigitFour:nil];
+            break;
+            
+        case 5:
+            digitsPressed = 4;
+            [keyValueFiveImageView setImage:nil];
+            [self setDigitFive:nil];
+            break;
+            
         default:
             break;
     }
@@ -364,8 +386,19 @@
             digitsPressed = 4;
             [keyValueFourImageView setImage:[UIImage imageNamed:@"input"]];
             [self setDigitFour:[NSString stringWithFormat:@"%i", digit]];
-            [self performSelector:@selector(checkPin) withObject:self afterDelay:0.3];
+            break;
             
+        case 4:
+            digitsPressed = 5;
+            [keyValueFiveImageView setImage:[UIImage imageNamed:@"input"]];
+            [self setDigitFive:[NSString stringWithFormat:@"%i", digit]];
+            break;
+        
+        case 5:
+            digitsPressed = 6;
+            [keyValueSixImageView setImage:[UIImage imageNamed:@"input"]];
+            [self setDigitSix:[NSString stringWithFormat:@"%i", digit]];
+            [self performSelector:@selector(checkPin) withObject:self afterDelay:0.3];
             break;
             
         default:
@@ -375,20 +408,16 @@
 
 - (void)checkPin
 {
-    int stringPasscode = [[NSString stringWithFormat:@"%@%@%@%@", digitOne, digitTwo, digitThree, digitFour] intValue];
-    if (stringPasscode == [dataSource unlockPasscode]) 
-    {
+    int stringPasscode = [[NSString stringWithFormat:@"%@%@%@%@%@%@", digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix] intValue];
+    if (stringPasscode == [dataSource unlockPasscode]) {
         [delegate unlockWasSuccessful];
         [self resetLockScreen];
         [incorrectAttemptImageView setImage:nil];
         [incorrectAttemptLabel setText:nil];
-    }
-    else
-    {
+    } else {
         attempts += 1;
         [delegate unlockWasUnsuccessful:stringPasscode afterAttemptNumber:attempts];
-        if ([dataSource hasAttemptLimit]) 
-        {
+        if ([dataSource hasAttemptLimit]) {
             
             int remainingAttempts = [dataSource attemptLimit] - attempts;
             if (remainingAttempts != 0) 
@@ -404,9 +433,7 @@
                 [delegate attemptsExpired];
                 return;
             }
-        }
-        else
-        {
+        } else {
             [incorrectAttemptImageView setImage:[UIImage imageNamed:@"error-box"]];
             [incorrectAttemptLabel setText:[NSString stringWithFormat:@"Incorrect pin"]];
         }

@@ -100,7 +100,7 @@
 - (int)unlockPasscode
 {
     /* Provide the ABLockScreen with a code to verify against */
-    return 1234;
+    return 123456;
 }
 
 - (NSString *)padLockScreenTitleText
