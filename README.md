@@ -22,8 +22,8 @@ ABPadLockScreenDemo project.
 
 ### Meta
 
-This fork maintained by [Sumardi Shukor](http://github.com/sumardi)
-Twitter : [@sumardi](http://twitter.com/sumardi)
+This fork maintained by [Sumardi Shukor](http://github.com/sumardi)   
+Twitter : [@sumardi](http://twitter.com/sumardi)    
 Web : http://www.sumardi.net
 
 Created By : Aron Bury 2011 http://www.aronbury.com
