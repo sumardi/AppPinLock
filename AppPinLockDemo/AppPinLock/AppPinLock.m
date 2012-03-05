@@ -295,7 +295,7 @@ typedef enum {
     
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
 
-    if ([[data objectForKey:@"pinlock"] intValue] == 0) {
+    if ([[data objectForKey:@"pinlock"] isEqualToString:@""]) {
         state = AppPinLockSetup;
         [subTitleLabel setText:@"Enter your new passcode"];
     } else {
@@ -473,7 +473,8 @@ typedef enum {
         [incorrectAttemptImageView setImage:nil];
         [incorrectAttemptLabel setText:nil];
         NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-        [data setObject:[NSNumber numberWithInt:initialPasscode] forKey:@"pinlock"];
+        NSString *pinlock = [NSString stringWithFormat:@"%i", initialPasscode];
+        [data setObject:[AppPinLock getMD5FromString:pinlock] forKey:@"pinlock"];
         [data writeToFile:filePath atomically:YES];
     } else {
         [incorrectAttemptImageView setImage:[UIImage imageNamed:@"error-box"]];
@@ -489,7 +490,7 @@ typedef enum {
     int stringPasscode = [[NSString stringWithFormat:@"%@%@%@%@%@%@", digitOne, digitTwo, digitThree, digitFour, digitFive, digitSix] intValue];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
     
-    if (stringPasscode == [[data objectForKey:@"pinlock"] intValue]) {
+    if ([[AppPinLock getMD5FromString:[NSString stringWithFormat:@"%i", stringPasscode]] isEqualToString:[data objectForKey:@"pinlock"]]) {
         [delegate unlockWasSuccessful];
         [self resetLockScreen];
         [incorrectAttemptImageView setImage:nil];
@@ -543,4 +544,21 @@ typedef enum {
     return button;
     
 }
+
+#pragma mark - class methods
+
++ (NSString *)getMD5FromString:(NSString *)source
+{
+    const char *src = [source UTF8String];
+    unsigned char result[34];
+    CC_MD5(src, strlen(src), result);
+    NSString *ret = [[NSString alloc] initWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                      result[0], result[1], result[2], result[3],
+                      result[4], result[5], result[6], result[7],
+                      result[8], result[9], result[10], result[11],
+                      result[12], result[13], result[14], result[15]
+                      ];
+    return [ret lowercaseString];
+}
+
 @end

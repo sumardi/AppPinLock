@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>pinlock</key>
-	<integer>0</integer>
+	<string></string>
 </dict>
 </plist>

@@ -43,6 +43,7 @@
 		9CB9F01C141A26C9003B990E /* error-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFF141A26C9003B990E /* error-box.png */; };
 		9CB9F01D141A26C9003B990E /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9F000141A26C9003B990E /* input.png */; };
 		9F56452A1503F11500CF70B4 /* passcode.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F5645291503F11500CF70B4 /* passcode.plist */; };
+		9F56452C150504C600CF70B4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F56452B150504C600CF70B4 /* Security.framework */; };
 		9FBA9BAD1503484F005A2D5B /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FBA9BAC1503484F005A2D5B /* DemoViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		9CB9F000141A26C9003B990E /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
 		9CB9F001141A26C9003B990E /* AppPinLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPinLock.h; sourceTree = "<group>"; };
 		9F5645291503F11500CF70B4 /* passcode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = passcode.plist; sourceTree = "<group>"; };
+		9F56452B150504C600CF70B4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9FBA9BAC1503484F005A2D5B /* DemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F56452C150504C600CF70B4 /* Security.framework in Frameworks */,
 				9CB9EFC2141A2641003B990E /* UIKit.framework in Frameworks */,
 				9CB9EFC4141A2641003B990E /* Foundation.framework in Frameworks */,
 				9CB9EFC6141A2641003B990E /* CoreGraphics.framework in Frameworks */,
@@ -127,6 +130,7 @@
 		9CB9EFC0141A2641003B990E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F56452B150504C600CF70B4 /* Security.framework */,
 				9CB9EFC1141A2641003B990E /* UIKit.framework */,
 				9CB9EFC3141A2641003B990E /* Foundation.framework */,
 				9CB9EFC5141A2641003B990E /* CoreGraphics.framework */,

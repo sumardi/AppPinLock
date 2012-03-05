@@ -32,6 +32,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CommonCrypto/CommonDigest.h>
 @protocol AppPinLockDelegate
 @required
 - (void)unlockWasSuccessful;
@@ -61,5 +62,6 @@
 - (id)initWithDelegate:(id<AppPinLockDelegate>)aDelegate withDataSource:(id<AppPinLockDataSource>)aDataSource;
 - (void)resetAttempts;
 - (void)resetLockScreen;
++ (NSString *)getMD5FromString:(NSString *)source;
 
 @end
